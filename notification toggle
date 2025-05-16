@@ -1,0 +1,29 @@
+import React, { useEffect, useState } from 'react';
+import './App.css';
+
+const App = () => {
+  const [disable, setDisable] = useState(()=>{
+    const saved= localStorage.getItem('disable')
+    return saved !== null ? JSON.parse(saved) ? false;
+   } );
+
+   useEffect(()=>{
+     localStorage.setItem('disable', JSON.stringify(disable))
+   },[disable])
+
+  const handleDisableClick = () => {
+    setDisable((prev) => !prev);
+  };
+  return (
+    <div className="container">
+      <button
+        onClick={handleDisableClick}
+        className={disable ? 'red' : 'green'}
+      >
+        {disable ? 'Disable' : 'Enabale'}
+      </button>
+    </div>
+  );
+};
+
+export default App;
